@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Free</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: #050505;
+    color: white;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* BACKGROUND */
+
+body::before {
+    content: "";
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    background: #7c3aed;
+    filter: blur(180px);
+    opacity: 0.12;
+    top: -250px;
+    left: -200px;
+    z-index: -2;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    width: 500px;
+    height: 500px;
+    background: #2563eb;
+    filter: blur(180px);
+    opacity: 0.10;
+    bottom: -200px;
+    right: -150px;
+    z-index: -2;
+}
+
+/* NAVBAR */
+
+nav {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 7%;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    backdrop-filter: blur(15px);
+    position: fixed;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.logo span {
+    color: #8b5cf6;
+}
+
+.nav-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #aaa;
+    font-size: 13px;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+    background: #22c55e;
+    border-radius: 50%;
+    box-shadow: 0 0 12px #22c55e;
+}
+
+/* PAGES */
+
+.page {
+    display: none;
+    min-height: 100vh;
+    padding: 120px 7% 60px;
+    animation: fadeIn 0.5s ease;
+}
+
+.page.active {
+    display: flex;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* HOME */
+
+#home {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero {
+    max-width: 900px;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 15px;
+    border: 1px solid rgba(139,92,246,0.3);
+    background: rgba(139,92,246,0.08);
+    border-radius: 100px;
+    color: #c4b5fd;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 28px;
+}
+
+.hero h1 {
+    font-size: clamp(55px, 9vw, 110px);
+    line-height: 0.95;
+    letter-spacing: -6px;
+    font-weight: 800;
+}
+
+.gradient {
+    background: linear-gradient(90deg, #a78bfa, #6366f1, #38bdf8);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.hero p {
+    max-width: 600px;
+    margin: 30px auto;
+    color: #888;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* BUTTON */
+
+.main-button {
+    border: none;
+    padding: 17px 30px;
+    border-radius: 12px;
+    color: white;
+    background: linear-gradient(135deg, #7c3aed, #4f46e5);
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 10px 40px rgba(99,102,241,0.25);
+    transition: 0.3s;
+}
+
+.main-button:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 50px rgba(99,102,241,0.4);
+}
+
+/* PRODUCTS */
+
+#products {
+    flex-direction: column;
+    max-width: 1300px;
+    margin: auto;
+    width: 100%;
+}
+
+.section-header {
+    margin-bottom: 45px;
+}
+
+.section-header small {
+    color: #8b5cf6;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 11px;
+}
+
+.section-header h2 {
+    font-size: 45px;
+    margin-top: 10px;
+    letter-spacing: -2px;
+}
+
+.section-header p {
+    color: #777;
+    margin-top: 10px;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 22px;
+}
+
+.product-card {
+    padding: 30px;
+    min-height: 280px;
+    border-radius: 22px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: linear-gradient(
+        145deg,
+        rgba(255,255,255,0.06),
+        rgba(255,255,255,0.015)
+    );
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: 0.35s;
+}
+
+.product-card::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: #7c3aed;
+    filter: blur(100px);
+    opacity: 0.15;
+    top: -100px;
+    right: -80px;
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(139,92,246,0.45);
+    box-shadow: 0 20px 70px rgba(0,0,0,0.35);
+}
+
+.product-icon {
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    background: rgba(139,92,246,0.13);
+    border: 1px solid rgba(139,92,246,0.2);
+    font-size: 24px;
+    margin-bottom: 35px;
+}
+
+.product-card h3 {
+    font-size: 21px;
+    margin-bottom: 10px;
+}
+
+.product-card p {
+    color: #777;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.product-price {
+    margin-top: 25px;
+    color: #a78bfa;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+/* DOWNLOAD PAGE */
+
+#download {
+    align-items: center;
+    justify-content: center;
+}
+
+.download-box {
+    width: 100%;
+    max-width: 650px;
+    padding: 50px;
+    border-radius: 25px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.035);
+    box-shadow: 0 30px 100px rgba(0,0,0,0.4);
+}
+
+.download-icon {
+    width: 75px;
+    height: 75px;
+    margin: 0 auto 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(139,92,246,0.13);
+    border: 1px solid rgba(139,92,246,0.3);
+    border-radius: 20px;
+    font-size: 32px;
+}
+
+.download-box h2 {
+    font-size: 35px;
+    margin-bottom: 15px;
+}
+
+.download-box p {
+    color: #777;
+    line-height: 1.7;
+    margin-bottom: 30px;
+}
+
+.gofile-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    padding: 16px 28px;
+    border-radius: 12px;
+    background: #fff;
+    color: #050505;
+    font-size: 14px;
+    font-weight: 800;
+    transition: 0.3s;
+}
+
+.gofile-button:hover {
+    transform: translateY(-3px);
+    background: #ddd;
+}
+
+.back {
+    display: block;
+    margin-top: 20px;
+    color: #666;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.back:hover {
+    color: white;
+}
+
+/* FOOTER */
+
+footer {
+    position: fixed;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+    color: #444;
+    font-size: 11px;
+    pointer-events: none;
+}
+
+/* MOBILE */
+
+@media(max-width: 600px) {
+
+    nav {
+        padding: 0 5%;
+    }
+
+    .nav-status {
+        display: none;
+    }
+
+    .page {
+        padding: 110px 5% 60px;
+    }
+
+    .hero h1 {
+        font-size: 55px;
+        letter-spacing: -4px;
+    }
+
+    .section-header h2 {
+        font-size: 35px;
+    }
+
+    .download-box {
+        padding: 35px 22px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">PRODUCT<span>.</span></div>
+
+    <div class="nav-status">
+        <div class="status-dot"></div>
+        All systems operational
+    </div>
+</nav>
+
+
+<!-- PAGE 1 -->
+
+<section id="home" class="page active">
+
+    <div class="hero">
+
+        <div class="badge">
+            ✦ FREE DIGITAL PRODUCTS
+        </div>
+
+        <h1>
+            PRODUCT<br>
+            <span class="gradient">FREE.</span>
+        </h1>
+
+        <p>
+            Découvrez notre sélection de produits gratuits.
+            Une interface simple, rapide et élégante pour accéder
+            directement à vos fichiers.
+        </p>
+
+        <button class="main-button" onclick="showPage('products')">
+            EXPLORER LES PRODUITS →
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- PAGE 2 -->
+
+<section id="products" class="page">
+
+    <div class="section-header">
+
+        <small>Library</small>
+
+        <h2>Nos produits</h2>
+
+        <p>
+            Cliquez sur un produit pour accéder au téléchargement.
+        </p>
+
+    </div>
+
+
+    <div class="product-grid">
+
+        <div class="product-card" onclick="showPage('download')">
+
+            <div class="product-icon">
+                ⚡
+            </div>
+
+            <h3>Product Free</h3>
+
+            <p>
+                Produit gratuit disponible au téléchargement.
+                Cliquez ici pour obtenir votre fichier.
+            </p>
+
+            <div class="product-price">
+                FREE · 100% GRATUIT
+            </div>
+
+        </div>
+
+
+        <!--
+        COPIE CE BLOC SI TU VEUX AJOUTER D'AUTRES PRODUITS
+
+        <div class="product-card" onclick="showPage('download')">
+            <div class="product-icon">✦</div>
+            <h3>Autre Produit</h3>
+            <p>Description du produit.</p>
+            <div class="product-price">FREE</div>
+        </div>
+        -->
+
+    </div>
+
+</section>
+
+
+<!-- PAGE 3 -->
+
+<section id="download" class="page">
+
+    <div class="download-box">
+
+        <div class="download-icon">
+            ↓
+        </div>
+
+        <h2>Product Free</h2>
+
+        <p>
+            Votre produit est prêt.
+            Cliquez sur le bouton ci-dessous pour accéder
+            au fichier hébergé sur GoFile.
+        </p>
+
+        <!-- REMPLACE LE LIEN CI-DESSOUS PAR TON LIEN GOFILE -->
+
+        <a
+            class="gofile-button"
+            href="https://gofile.io/d/TON-LIEN"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            ACCÉDER AU FICHIER ↗
+        </a>
+
+        <span class="back" onclick="showPage('products')">
+            ← Retour aux produits
+        </span>
+
+    </div>
+
+</section>
+
+
+<footer>
+    PRODUCT. © 2026 · Free Digital Products
+</footer>
+
+
+<script>
+
+function showPage(pageId) {
+
+    document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+    });
+
+    document.getElementById(pageId).classList.add('active');
+
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+</script>
+
+</body>
+</html>
